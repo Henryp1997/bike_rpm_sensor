@@ -3,6 +3,7 @@ int one[8] = {0, 1, 1, 0, 0, 0, 0};
 int two[8] = {1, 1, 0, 1, 1, 0, 1};
 int three[8] = {1, 1, 1, 1, 0, 0, 1};
 int four[8] = {0, 1, 1, 0, 0, 1, 1};
+// int four[8] = {0, 0, 0, 0, 0, 0, 0};
 int five[8] = {1, 0, 1, 1, 0, 1, 1};
 int six[8] = {1, 0, 1, 1, 1, 1, 1};
 int seven[8] = {1, 1, 1, 0, 0, 0, 0};
@@ -11,6 +12,9 @@ int nine[8] = {1, 1, 1, 1, 0, 1, 1};
 
 int digit_pins[4] = {2, 3, 4, 5};
 int segment_pins[8] = {6, 7, 8, 9, 10, 11, 12, 13};
+
+int update_display = 0;
+int digit1 = 0; int digit2 = 0; int digit3 = 0;
 
 int init_all_pins() {
   for (int i = 0; i < 9; i++) {
@@ -82,23 +86,29 @@ void setup() {
 }
 
 void loop () {
-  // first read voltage from analog pin A0
-  float voltage = (analogRead(A0) * 5.0) / 1024.0;
+  if (update_display == 200) {
+    // first read voltage from analog pin A6
+    float voltage = (analogRead(A6) * 5.0) / 1024.0;
 
-  int digit1 = floor(voltage);
-  int digit2 = floor((voltage - digit1) * 10);
-  int digit3 = floor((((voltage - digit1) * 10) - digit2) * 10);
+    digit1 = floor(voltage);
+    digit2 = floor((voltage - digit1) * 10);
+    digit3 = floor((((voltage - digit1) * 10) - digit2) * 10);
+    update_display = 0;
+  }
+  else {
+    update_display++;
+  }
 
   set_digit_pos(0, 1, 1, 1);
-  set_number(1, true);
+  set_number(digit1, true);
   set_all_low();
 
   set_digit_pos(1, 0, 1, 1);
-  set_number(1, false);
+  set_number(digit2, false);
   set_all_low();
   
   set_digit_pos(1, 1, 0, 1);
-  set_number(1, false);
+  set_number(digit3, false);
   set_all_low();
 
 }
