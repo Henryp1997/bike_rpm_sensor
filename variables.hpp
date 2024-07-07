@@ -16,14 +16,17 @@ int digit_pins[4] = {2, 3, 4, 5};
 // pins controlling the eight segments (8th is decimal point)
 int segment_pins[8] = {6, 7, 8, 9, 10, 11, 12, 13};
 
-// only update display when this value reaches a set value
-int update_display = 0;
+// only update speed periodically to reduce fluctuations
+int update_speed = 0;
+
+// magnet pole direction. 0 for reducing voltage and 1 for increasing voltage
+int magnet_pole_dir = 0;
 
 // background voltage fluctuations of hall effect sensor
 float noise_voltage = 0.05;
 
-// initialise prev_voltage variable
-float prev_voltage = 0;
+// voltage of hall effect sensor data pin when no magnet present
+float off_voltage = 0;
 
 // flag to allow parameter initialisation in the main loop only one time
 int init_loop = 1;

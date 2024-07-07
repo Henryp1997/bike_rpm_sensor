@@ -33,7 +33,7 @@ void loop() {
   if (init_loop) {
     // read voltage across hall effect 
     // sensor data pin to initialise variable
-    prev_voltage = dac_to_volts(analogRead(A6));
+    off_voltage = dac_to_volts(analogRead(A6));
     init_loop = 0;
   }
 
@@ -53,8 +53,9 @@ void loop() {
       if ((time_diff / 1000000.0) > 0.1) {
         measuring = 0;
         speed = calculate_speed(time_diff);
+        update_speed = 0;
       }
-      
+
     }
   }
   else {
@@ -187,7 +188,10 @@ float dac_to_volts(float dac) {
 }
 
 bool magnet_detected(float voltage) {
-  return abs(voltage - prev_voltage) > noise_voltage;
+  if (magnet_pole_dir == 1) {
+    return voltage - off_voltage > noise_voltage;
+  }
+  return off_voltage - voltage > noise_voltage;
 }
 
 float calculate_speed(unsigned long time_diff) {
