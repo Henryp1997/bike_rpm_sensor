@@ -45,7 +45,7 @@ float speed = 0.000;
 // diameter of typical 700c wheel. You might want to measure
 // this yourself to improve accuracy or if you are using a different
 // type of bike. Make sure the tyre is pumped up before measuring
-float wheel_diameter = 0.622;
+float wheel_diameter = 0.7;
 
 // calculate maximum speed of magnet given max travel speed of 120km/h
 // the max travel speed is only valid for the center of the wheel. At the top
@@ -65,7 +65,7 @@ float max_speed = 120 * (1 + magnet_placement);
 // factor of 1e6 on the top of the fraction. So the factor is just 3.1416 * 1000000
 // then to convert to km/h, multiply by 3.6: factor is 11309760. Therefore, the full
 // constant that needs to be divided by time_diff value is:
-float speed_const = 11309760 * wheel_diameter * (1 + magnet_placement);
+float speed_const = 11309760 * wheel_diameter / (1 + magnet_placement);
 // (this assumes no-slip)
 
 // the three digits that will become the rpm on the display
