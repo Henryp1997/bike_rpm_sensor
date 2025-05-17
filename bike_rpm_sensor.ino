@@ -1,15 +1,3 @@
-<<<<<<< HEAD
-// #include <chrono>
-// using namespace std::chrono;
-
-// initialize the library by associating any needed LCD interface pin
-// with the arduino pin number it is connected to
-int timer_lcd_voltage = 0;
-int measuring_rpm = 0;
-const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
-float prev_voltage = 0;
-const float noise_voltage = 0.05;
-=======
 /*
      6
     ---
@@ -22,7 +10,6 @@ const float noise_voltage = 0.05;
      9
 
   pin 13 is decimal point (probably don't need)
->>>>>>> 65bc69e7d82b0a28ad084540be1645f2efdcd8b8
 
   D1 = 2
   D2 = 3
@@ -37,19 +24,6 @@ const float noise_voltage = 0.05;
 void setup() {
   init_all_pins();
   Serial.begin(9600);
-<<<<<<< HEAD
-  prev_voltage = get_sensor_voltage(analogRead(A0));
-  delay(1000);
-}
-
-int test() {
-  int rpms[100];
-  int i = 0;
-  while (i < 100) {
-    rpms[i] = i;
-    i ++;
-  }
-=======
 }
 
 // main loop
@@ -223,7 +197,6 @@ bool magnet_detected(float voltage) {
 float calculate_speed(unsigned long time_diff) {
   // see variables.h for derivation of speed_const
   return speed_const / time_diff;
->>>>>>> 65bc69e7d82b0a28ad084540be1645f2efdcd8b8
 }
 
 float get_sensor_voltage(float volt_bits) {
